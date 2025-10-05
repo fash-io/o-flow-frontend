@@ -1,73 +1,111 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# O-FLOW
 
-Currently, two official plugins are available:
+This project is a Dashboard app called **O-flow**.  
+It contains the **Login page**, **2FA (OTP) modal**, and a **Biometric (dummy)** modal for future integration.  
+The goal of this first phase is to establish a functional and user-friendly authentication flow that other developers can easily extend.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+- **Frontend Framework:** React + Vite  
+- **Language:** TypeScript  
+- **UI Library:** ShadCN UI  
+- **Icons:** Lucide React  
+- **State Management:** Zustand  
+- **Styling:** Tailwind CSS  
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Features Implemented (Week 1)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Login Page
+- Users can log in with **email + password** fields.  
+- Input validation for empty or invalid fields.  
+- Displays **error/success messages** during login attempts.  
+- Includes **placeholders** for future OTP and Biometric authentication buttons.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Two-Factor Authentication (2FA)
+- After login, a **modal** opens requesting a 6-digit OTP.  
+- The OTP is currently **static (`123456`)** for demo purposes.  
+- If the entered OTP matches, the user is redirected to the dashboard.  
+- Incorrect OTP shows an error message.  
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Biometric Modal (Dummy Flow)
+- Simulates biometric authentication (fingerprint scan).  
+- When triggered, it **automatically “authenticates” after 6 seconds**.  
+- Used only for demonstration — no real biometric data is processed.
+
+---
+
+## ⚙️ Project Structure
+
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+src/
+│
+├── components/
+│   ├── LoginForm.tsx
+│   ├── TwoFA.tsx
+│   ├── BiometricsModal.tsx
+│
+├── pages/
+│   ├── Dashboard.tsx
+│   └── AuthPage.tsx
+│
+├── store/
+│   └── useAuthStore.ts
+│
+└── App.tsx
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+````
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## Getting Started
+
+### 1️. Clone the Repository
+```bash
+git clone https://github.com/alvynadams/o-flow-frontend.git
+cd dashboard-auth
+````
+
+### 2️. Install Dependencies
+
+```bash
+npm install
+# or
+yarn install
 ```
+
+### 3️. Run the App
+
+```bash
+npm run dev
+```
+
+Then open **[http://localhost:5173/](http://localhost:5173/)** in your browser.
+
+---
+
+## How to Test the Flow
+
+1. Enter any **valid email format** and **password**.
+2. Click **Login** → the **OTP modal** opens.
+3. Enter **`123456`** as the OTP.
+4. You’ll see a **success message** and be redirected to the dashboard.
+5. Alternatively, try the **Biometric modal** — it will auto-sign you in after **6 seconds**.
+
+---
+
+## Next Steps (Planned for Later Weeks)
+
+* Connect authentication to real backend API.
+* Implement role-based access (Admin, Employee, etc).
+* Integrate real 2FA (via email/SMS).
+* Secure biometric authentication flow.
+* Add registration and password recovery pages.
+
+---
+
